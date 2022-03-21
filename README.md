@@ -92,7 +92,7 @@ Rviz map not explored      |  Rviz map explored
 
 </p>
 
-User-Interface <img src="https://media4.giphy.com/media/o8QCgJacJR5balxq8Y/200w.webp?cid=ecf05e47v2cy2r25cqior5ftits1w4lipka50hjfqkj4jhz4&rid=200w.webp&ct=s" width="50">
+User-Interface <img src="https://media4.giphy.com/media/o8QCgJacJR5balxq8Y/200w.webp?cid=ecf05e47v2cy2r25cqior5ftits1w4lipka50hjfqkj4jhz4&rid=200w.webp&ct=s" width="80"</h2>>
 --------------
 
 This is the primary node, and it was the first to appear.
@@ -101,7 +101,7 @@ This node shows the user a little image that explains how to choose the robot's 
 
 The following are some of the commands that can be used:
 
-<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/ui.png" width="600" height="600">
+<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/ui.png" width="400" height="400">
 
 <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
 
