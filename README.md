@@ -65,6 +65,13 @@ __Assignment3_RT1.launch__
 ```
 
 ## Environment and mapping
+
+Rviz (a 3D visualizer for the Robot Operating System (ROS) framework) and Gazebo (an open-source 3D Robotics simulator) appear on the screen as soon as the simulator starts:
+Thanks to its sensors, the robot can see what's going on in the world around it.
+The full environment that can be explored
+
+ROS creates the environment described in the __world__ folder's file 'house.world.'
+
 The robot moves in the environment in the figure (Gazebo view):
 
 <p align="center">
@@ -73,9 +80,9 @@ The robot moves in the environment in the figure (Gazebo view):
     
 </p>
 
+The robot knows only the portion of the surroundings that its sensors allow it to detect from its starting point because it does not know all of the map's boundaries.
 
-The robot does not have a map of the surrounding environment at first, but owing to the laser scanners it has and the "gmapping" package, it can create one.
-The final map, visible on Rviz is as follows:
+The robot's map knowledge grows as it moves around the map. The robot's known surroundings is graphed and updated at each time instant on Rviz.
 
 <p align="center">
 	
@@ -84,10 +91,17 @@ Rviz map not explored      |  Rviz map explored
 <img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map.png" width="400" height="550"> |  <img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map_explored.png" width="400" height="550">
 
 </p>
-	
-## Project structure
 
+User-Interface <img src="https://media4.giphy.com/media/o8QCgJacJR5balxq8Y/200w.webp?cid=ecf05e47v2cy2r25cqior5ftits1w4lipka50hjfqkj4jhz4&rid=200w.webp&ct=s" width="50"></h2>
+--------------
 
+This is the primary node, and it was the first to appear.
+
+This node shows the user a little image that explains how to choose the robot's movement modes. It also manages user input by modifying the ros parameters that allow the activation of the nodes defined for each mode if the command is correct.
+
+The following are some of the commands that can be used:
+
+<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/ui.png" width="600" height="350">
 
 <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
 
