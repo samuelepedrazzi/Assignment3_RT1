@@ -24,27 +24,27 @@ For the specific project the program requires the installation of the following 
 
 * [Slam Gmapping package](https://github.com/CarmineD8/slam_gmapping)
 
-	which can be installed with the bash command:
+which can be installed with the bash command:
 
-	```bash
-		$ git clone https://github.com/CarmineD8/slam_gmapping.git
-	```
+```bash
+	$ git clone https://github.com/CarmineD8/slam_gmapping.git
+```
 
 * xterm
 	
-	Easy to install with:
+Easy to install with:
 
-	```bash
-		$ sudo apt-get install -y xterm
-	```
+```bash
+	$ sudo apt-get install -y xterm
+```
  
 * Ros navigation stack
 	
-	To Install it:
+To Install it:
 
-	```bash
-		$ sudo apt-get install ros-<ros_distro>-navigation
-	```
+```bash
+	$ sudo apt-get install ros-<ros_distro>-navigation
+```
 
 Before running the simulation, first you have to run ROS (using ```$ roscore &``` and ```$ catkin_make``` ), then the simulation begins when the user has all of the required packages and runs a .launch file called:
 
@@ -74,6 +74,7 @@ The final map, visible on Rviz is as follows:
 
 ![map](https://user-images.githubusercontent.com/62377263/148928409-d8d45436-5e83-4284-8f01-b21346316c74.JPG)
 
+<img src="https://user-images.githubusercontent.com/62358773/149632556-e0e598cd-1287-404e-88b2-71a23a20fb0f.jpg" width=25%, height=25%>
 ## Project structure
 
 
