@@ -17,6 +17,8 @@ On a user-interface terminal window, the user can pick the robot's desired behav
 
 <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
 
+ <img src= "https://cdn-icons-png.flaticon.com/128/854/854894.png" width=40>
+
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
 
 
