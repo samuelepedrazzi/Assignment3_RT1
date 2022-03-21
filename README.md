@@ -15,6 +15,54 @@ On a user-interface terminal window, the user can pick the robot's desired behav
 * __2 - Free Drive__: The user can use the keyboard to drive the robot in the environment.
 * __3 - Driver Assistant__: The operator can direct the robot's movement with its keyboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
 
+Installing and Running <img src="https://cdn-icons.flaticon.com/png/128/3104/premium/3104000.png?token=exp=1647889513~hmac=b2a3f7f47e162e276ca27196820b4d8c" width="50"></h2>
+--------
+
+This simulator is built on the [__ROS__](http://wiki.ros.org) (__Robot-Operating-Systems__) platform, specifically the NOETIC version.
+
+For the specific project the program requires the installation of the following packages and tools before it can begin:
+
+* [Slam Gmapping package](https://github.com/CarmineD8/slam_gmapping)
+
+	which can be installed with the bash command:
+
+	```bash
+		$ git clone https://github.com/CarmineD8/slam_gmapping.git
+	```
+
+* xterm
+	
+	Easy to install with:
+
+	```bash
+		$ sudo apt-get install -y xterm
+	```
+ 
+* Ros navigation stack
+	
+	To Install it:
+
+	```bash
+		$ sudo apt-get install ros-<ros_distro>-navigation
+	```
+
+The simulation begins when the user has all of the required packages and runs a .launch file called:
+
+__Assignment3_RT1.launch__
+
+
+```cpp
+<?xml version="1.0"?>
+
+<launch>
+  <include file="$(find Assignment3_RT1)/launch/simulation_gmapping.launch"/>
+  <include file="$(find Assignment3_RT1)/launch/move_base.launch"/>
+ 
+ <!-- Run the UI node -->
+  <node pkg="Assignment3_RT1" type="UI" respawn="false" name="UI" output="screen" launch-prefix="xterm -e" required="true"/>
+ 
+</launch>
+```
 
 
 
