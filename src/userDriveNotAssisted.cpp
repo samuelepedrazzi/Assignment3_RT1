@@ -101,7 +101,7 @@ void UpdateVelocity(char input)
     // change direction
     case '7':
         lin_dir = 1;
-        angle_dir = -1;
+        angle_dir = 1;
         break;
     case '8':
         lin_dir = 1;
@@ -109,11 +109,11 @@ void UpdateVelocity(char input)
         break;
     case '9':
         lin_dir = 1;
-        angle_dir = 1;
+        angle_dir = -1;
         break;
     case '4':
         lin_dir = 0;
-        angle_dir = -1;
+        angle_dir = 1;
         break;
     case '5':
         lin_dir = 0;
@@ -121,11 +121,11 @@ void UpdateVelocity(char input)
         break;
     case '6':
         lin_dir = 0;
-        angle_dir = 1;
+        angle_dir = -1;
         break;
     case '1':
         lin_dir = -1;
-        angle_dir = 1;
+        angle_dir = -1;
         break;
     case '2':
         lin_dir = -1;
@@ -133,7 +133,7 @@ void UpdateVelocity(char input)
         break;
     case '3':
         lin_dir = -1;
-        angle_dir = -1;
+        angle_dir = 1;
         break;
     case '*':
         vel *= 1.1;
