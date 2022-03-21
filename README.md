@@ -81,7 +81,7 @@ The final map, visible on Rviz is as follows:
 	
 Rviz map not explored      |  Rviz map explored 
 :-------------------------:|:-------------------------:
-![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map.png)   |  ![(https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map_explored.png)
+![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map.png)   |  ![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map_explored.png)
 
 </p>
 	
