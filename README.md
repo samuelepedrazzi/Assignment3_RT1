@@ -13,7 +13,7 @@ On a user-interface terminal window, the user can pick the robot's desired behav
 
 * __1 - Autonomous Drive__: The user can select a goal position for the robot, and it will reach there on its own.
 * __2 - Free Drive__: The user can use the keyboard to drive the robot in the environment.
-* __3 - Driver Assistant__: The operator can direct the robot's movement with its keayboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
+* __3 - Driver Assistant__: The operator can direct the robot's movement with its keyboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
 
 
 
