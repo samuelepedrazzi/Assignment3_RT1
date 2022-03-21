@@ -92,7 +92,7 @@ Rviz map not explored      |  Rviz map explored
 
 </p>
 
-User-Interface <img src="https://media4.giphy.com/media/o8QCgJacJR5balxq8Y/200w.webp?cid=ecf05e47v2cy2r25cqior5ftits1w4lipka50hjfqkj4jhz4&rid=200w.webp&ct=s" width="80"></h2>
+User-Interface <img src="https://media4.giphy.com/media/o8QCgJacJR5balxq8Y/200w.webp?cid=ecf05e47v2cy2r25cqior5ftits1w4lipka50hjfqkj4jhz4&rid=200w.webp&ct=s" width="40"></h2>
 --------------
 
 This is the primary node, and it was the first to appear.
