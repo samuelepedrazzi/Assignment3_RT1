@@ -46,7 +46,7 @@ For the specific project the program requires the installation of the following 
 		$ sudo apt-get install ros-<ros_distro>-navigation
 	```
 
-The simulation begins when the user has all of the required packages and runs a .launch file called:
+Before running the simulation, first you have to run ROS (using ```$ roscore &``` and ```$ catkin_make``` ), then the simulation begins when the user has all of the required packages and runs a .launch file called:
 
 __Assignment3_RT1.launch__
 
@@ -63,6 +63,18 @@ __Assignment3_RT1.launch__
  
 </launch>
 ```
+
+## Environment and mapping
+The robot moves in the environment in the figure (Gazebo view):
+
+![true_map](https://user-images.githubusercontent.com/62377263/148927975-c272cc18-bd40-4af4-822e-f6440199b8a9.JPG)
+
+The robot does not have a map of the surrounding environment at first, but owing to the laser scanners it has and the "gmapping" package, it can create one.
+The final map, visible on Rviz is as follows:
+
+![map](https://user-images.githubusercontent.com/62377263/148928409-d8d45436-5e83-4284-8f01-b21346316c74.JPG)
+
+## Project structure
 
 
 
