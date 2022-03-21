@@ -51,7 +51,7 @@ The simulation begins when the user has all of the required packages and runs a 
 __Assignment3_RT1.launch__
 
 
-```bash
+```console
 <?xml version="1.0"?>
 
 <launch>
