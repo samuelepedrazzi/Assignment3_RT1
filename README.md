@@ -15,7 +15,7 @@ On a user-interface terminal window, the user can pick the robot's desired behav
 * __2 - Free Drive__: The user can use the keyboard to drive the robot in the environment.
 * __3 - Driver Assistant__: The operator can direct the robot's movement with its keyboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
 
-Installing and Running <img src="https://cdn-icons.flaticon.com/png/128/3104/premium/3104000.png?token=exp=1647889513~hmac=b2a3f7f47e162e276ca27196820b4d8c" width="50"></h2>
+Installing and Running <img src="https://media4.giphy.com/media/R0cVWjg6rAojjvwygg/200w.webp?cid=ecf05e473pmwhtmgw65ncai8eble4n0jfjl4jpkizf17vimd&rid=200w.webp&ct=s" width="50"></h2>
 --------
 
 This simulator is built on the [__ROS__](http://wiki.ros.org) (__Robot-Operating-Systems__) platform, specifically the NOETIC version.
@@ -81,7 +81,7 @@ The final map, visible on Rviz is as follows:
 	
 Rviz map not explored      |  Rviz map explored 
 :-------------------------:|:-------------------------:
-![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map.png)   |  ![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map_explored.png)
+![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map.png)  width="400" height="200" |  ![](https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rviz_map_explored.png) width="400" height="200"
 
 </p>
 	
