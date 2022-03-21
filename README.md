@@ -67,7 +67,12 @@ __Assignment3_RT1.launch__
 ## Environment and mapping
 The robot moves in the environment in the figure (Gazebo view):
 
-![true_map](https://user-images.githubusercontent.com/62377263/148927975-c272cc18-bd40-4af4-822e-f6440199b8a9.JPG)
+<p align="center">
+    
+<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/main/images/Gazebo_map.png" width="600" height="350">
+    
+</p>
+
 
 The robot does not have a map of the surrounding environment at first, but owing to the laser scanners it has and the "gmapping" package, it can create one.
 The final map, visible on Rviz is as follows:
