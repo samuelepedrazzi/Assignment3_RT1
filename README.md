@@ -69,7 +69,7 @@ The robot moves in the environment in the figure (Gazebo view):
 
 <p align="center">
     
-<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/main/images/Gazebo_map.png" width="600" height="350">
+<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/Gazebo_map.png" width="600" height="350">
     
 </p>
 
@@ -77,7 +77,9 @@ The robot moves in the environment in the figure (Gazebo view):
 The robot does not have a map of the surrounding environment at first, but owing to the laser scanners it has and the "gmapping" package, it can create one.
 The final map, visible on Rviz is as follows:
 
-![map](https://user-images.githubusercontent.com/62377263/148928409-d8d45436-5e83-4284-8f01-b21346316c74.JPG)
+Rviz map not explored      |  Rviz map explored 
+:-------------------------:|:-------------------------:
+![](https://...rviz_map.png)   |  ![](https://...rviz_map_explored.png)
 
 <img src="https://user-images.githubusercontent.com/62358773/149632556-e0e598cd-1287-404e-88b2-71a23a20fb0f.jpg" width=25%, height=25%>
 ## Project structure
