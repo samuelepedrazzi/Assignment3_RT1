@@ -11,9 +11,9 @@ Introduction <img src= "https://media2.giphy.com/media/fLsd17IO7HTCR85bDY/giphy.
 The goal of this project was to build three mobility modes that the user could choose from to allow the robot to explore an unknown but constrained territory.
 On a user-interface terminal window, the user can pick the robot's desired behavior; modalities include:
 
-_1- Autonomous Drive_: The user can select a goal position for the robot, and it will reach there on its own.
-_2- Free Drive_: The user can use the keyboard to drive the robot in the environment.
-_3- Driver Assistant_: The operator can direct the robot's movement with its keayboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
+* __1 - Autonomous Drive__: The user can select a goal position for the robot, and it will reach there on its own.
+* __2 - Free Drive__: The user can use the keyboard to drive the robot in the environment.
+* __3 - Driver Assistant__: The operator can direct the robot's movement with its keayboard, but an obstacle avoidance algorithm will keep the robot from colliding with walls.
 
 
 
