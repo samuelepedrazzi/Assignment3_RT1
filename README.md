@@ -114,7 +114,7 @@ close the program (exiting from the main function) or reset the simulation with
 ros::service::call("/gazebo/reset_simulation", reset)`
 ```
 
-For the three nodes I choose to use a non-blocking function to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
+For the three nodes I choose to use a __non-blocking function__ to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
 
 The repository I found on Github and changed a little bit for my purposes is from `kbNonBlock` at [teleop_twist_keyboard_repo](https://gist.github.com/whyrusleeping/3983293).
 
@@ -161,7 +161,8 @@ The user can change the robot velocity of 10% by pressing the following keys:
 
 </center>
 
-The speed is calculated by multiplying the relative speed by the selected direction, which is an integer between -1 and 1. 1 indicates that the robot must go ahead or turn left, -1 indicates that the robot must move backward (or turn right), and 0 indicates that the robot must stop.
+The speed is calculated by multiplying the relative speed by the selected direction, which is an integer between -1 and 1. 
+1 indicates that the robot must go ahead or turn left, -1 indicates that the robot must move backward (or turn right), and 0 indicates that the robot must stop.
 
 When the robot starts moving the move_base node publishes the right velocity and orientation on the cmd_vel topic.
 
@@ -170,9 +171,12 @@ When the robot starts moving the move_base node publishes the right velocity and
 Essentially, it intends to allow the user to control the robot in the environment using the keyboard, but we also want to enable automatic obstacle avoidance in this instance.
 
 The node, in particular, reads the same exact user inputs as the userDriveNotAssisted node with non-blocking getchar, but it also checks what the robot's laser scanner sees.
-This is done by subscribing to the `/scan` topic and using the message it receives to detect walls that are too close to the robot. This topic is made up of 720 _ranges_, each of which contains all of the detected distances.
 
-```pseudocode
+This is done by subscribing to the `/scan` topic and using the message it receives to detect walls that are too close to the robot. This topic is made up of 720 _ranges_, each of which contains all of the detected distances to the walls on its right, left and front.
+
+Here below the code to select the right action to do in proximity of a wall:
+
+```cpp
 // check if the distance of the robot to a wall is less than the threshold set before and update
 // the speed in such a way that the robot cannot collide with circuit delimitations,
 // it is able to continue driving avoiding walls.
@@ -210,9 +214,9 @@ if (left < th_min)
 }
 ```
 
-The code examines the minimum distance between two points within these ranges, and if a wall is closer than 'th min= 1 (meter),' the robot is prevented from approaching it. The robot cannot progress if the front wall is too close, and the robot cannot turn in that direction if one of the barriers on the left or right is too close.
+The code examines the minimum distance between two points within these ranges, and if a wall is closer than `th_min= 1`, the robot is prevented from approaching it. The robot cannot progress if the front wall is too close, and the robot cannot turn in that direction if one of the barriers on the left or right is too close.
 
-The functions merely edit the linear and angualar direction according to the requirements above, setting them to '__0__' when required, to activate this security feature.
+The functions merely edit the linear and angular direction according to the requirements above, setting them to '__0__' when required, to activate this security feature.
 
 Finally, the user is prompted with a red risk warning text.
     
