@@ -102,10 +102,21 @@ The following are some of the commands that can be used:
 
 <img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/ui.png" width="450" height="450">
 
-Depending on the user input it select the correct action to do, such as running one of the nodes (), close the program (exiting from the main function) or reset the simulation with ```console
-ros::service::call("/gazebo/reset_simulation", reset);
+Depending on the user input it select the correct action to do, such as running one of the nodes,
+
+```cpp
+system("rosrun Assignment3_RT1 achieveGoalPosition")
 ```
 
+close the program (exiting from the main function) or reset the simulation with 
+
+```cpp
+ros::service::call("/gazebo/reset_simulation", reset)`
+```
+
+For the three nodes I choose to use a non-blocking function to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
+
+The repository I found and changed a little bit for my purposes is from teleop_twist_keyboard_cpp at [kbNonBlock](https://gist.github.com/whyrusleeping/3983293).
 
 
 
