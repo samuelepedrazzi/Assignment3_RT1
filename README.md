@@ -209,6 +209,12 @@ if (left < th_min)
         }
 }
 ```
+
+The code examines the minimum distance between two points within these ranges, and if a wall is closer than 'th min= 1 (meter),' the robot is prevented from approaching it. The robot cannot progress if the front wall is too close, and the robot cannot turn in that direction if one of the barriers on the left or right is too close.
+
+The functions merely edit the linear and angualar direction according to the requirements above, setting them to '__0__' when required, to activate this security feature.
+
+Finally, the user is prompted with a red risk warning text.
     
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
 
