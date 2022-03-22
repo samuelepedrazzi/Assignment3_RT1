@@ -306,7 +306,7 @@ int main(int argc, char **argv)
     pub_vel = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
     // Start the program with async in order to read non blocking inputs and at the same time
-    // receive info to avoide collision, so it become multhithread.
+    // receive info to avoide collision, so it become multithread.
     ros::AsyncSpinner spinner(2);
     spinner.start();
 

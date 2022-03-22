@@ -41,53 +41,6 @@ int goal_id;
 void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg);
 
 /*
-In order to use non-blocking inputs from the keyboard, let's take these function to select non-blocking mode and then restore to blocking mode.
-Functions are taken from the repository of github kbNonblock.c at https://gist.github.com/whyrusleeping/3983293
-*/
-void RestoreKeyboardBlocking(struct termios *initial_settings)
-{
-    // Reapply old settings
-    tcsetattr(STDIN_FILENO, TCSANOW, initial_settings);
-}
-
-void SetKeyboardNonBlock(struct termios *initial_settings)
-{
-
-    struct termios new_settings;
-
-    // Store old settings, and copy to new settings
-    tcgetattr(fileno(stdin), initial_settings);
-
-    // Make required changes and apply the settings
-    new_settings = *initial_settings;
-    new_settings.c_lflag &= ~ICANON;
-    new_settings.c_lflag &= ~ECHO;
-    new_settings.c_lflag &= ~ISIG;
-    new_settings.c_cc[VMIN] = 1;
-    new_settings.c_cc[VTIME] = 0;
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &new_settings);
-}
-
-/*
-Function to have non-blocking keyboard input
-*/
-int GetChar(void)
-{
-    struct termios term_settings;
-    char c = 0;
-
-    SetKeyboardNonBlock(&term_settings);
-
-    c = getchar();
-
-    // Not restoring the keyboard settings causes the input from the terminal to not work right
-    RestoreKeyboardBlocking(&term_settings);
-
-    return c;
-}
-
-/*
 Function that simply show the actual goal coordinates.
 */
 void DisplayMenu()
@@ -149,7 +102,7 @@ void SetTargetCoordinates()
 	
 	//subscribe to goal status
         ros::NodeHandle nh;
-        sub_feedback = nh.subscribe("/move_base/status", 1, GetFeedback);   
+        sub_feedback = nh.subscribe("/move_base/status", 1, GetFeedback);  
 }
 
 /*
@@ -223,7 +176,7 @@ void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
 	{
 		char c;
 		std::cout << BOLD << ITALIC << "Would you want to set another goal? y/n\n\n" << NC;
-		std::cin >> c;
+   		std::cin >> c;
 		
 		if(c == 'y' || c == 'Y') 
 		SetTargetCoordinates();
