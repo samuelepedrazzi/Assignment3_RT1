@@ -114,7 +114,8 @@ close the program (exiting from the main function) or reset the simulation with
 ros::service::call("/gazebo/reset_simulation", reset)`
 ```
 
-For the three nodes I choose to use a __non-blocking function__ to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
+For the nodes regarding the movement, which is a dynamic action, I choose to use a __non-blocking function__ to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
+For the node concerning the setting and achievement of the preset coordinates I did not consider it necessary.
 
 The repository I found on Github and changed a little bit for my purposes is from `kbNonBlock` at [teleop_twist_keyboard_repo](https://gist.github.com/whyrusleeping/3983293).
 
