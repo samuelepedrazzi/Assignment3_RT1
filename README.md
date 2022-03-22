@@ -126,13 +126,13 @@ This node's goal is to drive the robot into the correct location in the environm
 
 A `/move_base/status` message handler is used to determine whether the robot has reached the goal. It examines the messages that have been published on the previously indicated subject.
 
-The initial status code is __1__, which indicates that the robot is on his way and the goal is active.
-When the robot comes to a halt, the status code changes to __3__ if the robot has reached the goal position, and to __4__ if the robot is unable to reach the given location.
-Other statuses that have been managed are for instance the goal lost with status identifier __5__ or the rejected status with the code __9__.
+The initial status code is '__1__', which indicates that the robot is on his way and the goal is active.
+When the robot comes to a halt, the status code changes to '__3__' if the robot has reached the goal position, and to '__4__' if the robot is unable to reach the given location.
+Other statuses that have been managed are for instance the goal lost with status identifier '__5__' or the rejected status with the code '__9__'.
 
 After having received the feedback of the status and the robot is stopped, so there isn't any active pending goal, the function `CancelGoal()`is called, a message of type `actionlib_msgs/GoalID` is generated and then published into the `/move_base/cancel` topic.
 
-DriveWithKeyboard node
+User Drive Not Assisted node
 --------------
 
 
@@ -148,6 +148,7 @@ The user can control the robot movement with the keypad (remember to click on BL
 
 </center>
 
+
 The user can change the robot velocity of 10% by pressing the following keys:
 
 <center>
@@ -160,10 +161,55 @@ The user can change the robot velocity of 10% by pressing the following keys:
 
 </center>
 
-The robot starts moving and the move_base node publishes the right velocity and orientation on the cmd_vel topic.
+The speed is calculated by multiplying the relative speed by the selected direction, which is an integer between -1 and 1. 1 indicates that the robot must go ahead or turn left, -1 indicates that the robot must move backward (or turn right), and 0 indicates that the robot must stop.
 
-<img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
+When the robot starts moving the move_base node publishes the right velocity and orientation on the cmd_vel topic.
 
+## User Drive Assisted node <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
+
+Essentially, it intends to allow the user to control the robot in the environment using the keyboard, but we also want to enable automatic obstacle avoidance in this instance.
+
+The node, in particular, reads the same exact user inputs as the userDriveNotAssisted node with non-blocking getchar, but it also checks what the robot's laser scanner sees.
+This is done by subscribing to the `/scan` topic and using the message it receives to detect walls that are too close to the robot. This topic is made up of 720 _ranges_, each of which contains all of the detected distances.
+
+```pseudocode
+// check if the distance of the robot to a wall is less than the threshold set before and update
+// the speed in such a way that the robot cannot collide with circuit delimitations,
+// it is able to continue driving avoiding walls.
+if (front < th_min)
+{
+        if (robot_vel.linear.x > 0)
+        {
+            // Stop the robot, it can only turn now
+            lin_dir = 0;
+            std::cout << RED << "Be careful, wall on the front!\n"
+                      << NC;
+        }
+}
+    
+if (right < th_min)
+{   
+        if (robot_vel.angular.z < 0)
+        {
+            // Stop the twist, it can only go straight now
+            angle_dir = 0;
+            std::cout << RED << "Be careful, wall on the right!\n"
+                      << NC;
+        }
+}
+    
+if (left < th_min)
+{
+        if (robot_vel.angular.z > 0)
+        {
+            // Stop the twist, it can only go straight now
+            angle_dir = 0;
+            std::cout << RED << "Be careful, wall on the left!\n"
+                      << NC;
+        }
+}
+```
+    
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
 
 
