@@ -41,6 +41,53 @@ int goal_id;
 void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg);
 
 /*
+In order to use non-blocking inputs from the keyboard, let's take these function to select non-blocking mode and then restore to blocking mode.
+Functions are taken from the repository of github kbNonblock.c at https://gist.github.com/whyrusleeping/3983293
+*/
+void RestoreKeyboardBlocking(struct termios *initial_settings)
+{
+    // Reapply old settings
+    tcsetattr(STDIN_FILENO, TCSANOW, initial_settings);
+}
+
+void SetKeyboardNonBlock(struct termios *initial_settings)
+{
+
+    struct termios new_settings;
+
+    // Store old settings, and copy to new settings
+    tcgetattr(fileno(stdin), initial_settings);
+
+    // Make required changes and apply the settings
+    new_settings = *initial_settings;
+    new_settings.c_lflag &= ~ICANON;
+    new_settings.c_lflag &= ~ECHO;
+    new_settings.c_lflag &= ~ISIG;
+    new_settings.c_cc[VMIN] = 1;
+    new_settings.c_cc[VTIME] = 0;
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_settings);
+}
+
+/*
+Function to have non-blocking keyboard input
+*/
+int GetChar(void)
+{
+    struct termios term_settings;
+    char c = 0;
+
+    SetKeyboardNonBlock(&term_settings);
+
+    c = getchar();
+
+    // Not restoring the keyboard settings causes the input from the terminal to not work right
+    RestoreKeyboardBlocking(&term_settings);
+
+    return c;
+}
+
+/*
 Function that simply show the actual goal coordinates.
 */
 void DisplayMenu()
@@ -102,12 +149,7 @@ void SetTargetCoordinates()
 	
 	//subscribe to goal status
         ros::NodeHandle nh;
-        sub_feedback = nh.subscribe("/move_base/status", 1, GetFeedback);
-        
-        
-        
-        
-        
+        sub_feedback = nh.subscribe("/move_base/status", 1, GetFeedback);   
 }
 
 /*
@@ -133,14 +175,16 @@ Function that checks the returning status from the ros message GoalStatusArray a
 select the correct action and feedback to take back to the user.
 */
 void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
-{
-	
+{	
+	// Define a variable to save the goal's status
 	int result = 0;
 	
+	//look for goals with correct id
         if (std::to_string(goal_id) == fdb_msg->status_list[0].goal_id.id) 
         	result = fdb_msg->status_list[0].status;
         	
-        	
+        // switch statement to select the correct status code feedback 
+        // checking the messages published into /move_base/status 
     	switch(result)
     	{
     	
@@ -148,32 +192,24 @@ void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
     	case 3:
         	std::cout << BOLD << GREEN << "Goal achieved!\n" << NC;
         	CancelGoal();
-        	
-        	
         	break;
         
         //status ABORTED
     	case 4:
         	std::cout << BOLD << RED << "Goal aborted, it cannot be reached!\n" << NC;
-        	
         	CancelGoal();
-        	
         	break;
         	
         //status REJECTED
         case 5:
         	std::cout << BOLD << RED << "Goal rejected!\n" << NC;
-        	
         	CancelGoal();
-        	
         	break;
         	
         //status LOST
     	case 9:
         	std::cout << BOLD << RED << "Goal lost!\n" << NC;
-        	
         	CancelGoal();
-        	
         	break;
 
         	
@@ -182,11 +218,11 @@ void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
         	break;
     	}
 	
+	// if there is no pending goal active, it is possible to set another goal.
 	if(!pending_goal)
 	{
 		char c;
 		std::cout << BOLD << ITALIC << "Would you want to set another goal? y/n\n\n" << NC;
-		//c = getchar();
 		std::cin >> c;
 		
 		if(c == 'y' || c == 'Y') 
