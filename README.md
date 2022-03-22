@@ -116,7 +116,7 @@ ros::service::call("/gazebo/reset_simulation", reset)`
 
 For the three nodes I choose to use a non-blocking function to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
 
-The repository I found and changed a little bit for my purposes is from teleop_twist_keyboard_cpp at [kbNonBlock](https://gist.github.com/whyrusleeping/3983293).
+The repository I found on Github and changed a little bit for my purposes is from 'kbNonBlock' at [teleop_twist_keyboard_repo](https://gist.github.com/whyrusleeping/3983293).
 
 
 
