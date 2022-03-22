@@ -132,6 +132,36 @@ Other statuses that have been managed are for instance the goal lost with status
 
 After having received the feedback of the status and the robot is stopped, so there isn't any active pending goal, the function `CancelGoal()`is called, a message of type `actionlib_msgs/GoalID` is generated and then published into the `/move_base/cancel` topic.
 
+DriveWithKeyboard node
+--------------
+
+
+The user can control the robot movement with the keypad (remember to click on BLOC NUM, otherwise the correct ascii code will not be read):
+
+<center>
+
+|| Turn left | Do not turn | Turn right|							
+|:--------:|:--------:|:----------:|:----------:|
+|__Go forward__|`7`|`8`|`9`
+|__Stop__|`4`|`5`|`6`
+|__Go backward__|`1`|`2`|`3`
+
+</center>
+
+The user can change the robot velocity of 10% by pressing the following keys:
+
+<center>
+
+|| Linear and Angular | Linear only | Angular only|
+|:--------:|:--------:|:----------:|:----------:|
+|__Increment__|`*`|`+`|`a`
+|__Reset__|`R or r`|`e`|`w`
+|__Decrease__|`/`|`-`|`z`
+
+</center>
+
+The robot starts moving and the move_base node publishes the right velocity and orientation on the cmd_vel topic.
+
 <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
 
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
