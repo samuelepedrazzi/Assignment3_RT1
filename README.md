@@ -225,7 +225,7 @@ RQT_Graph
 ---------------------
 
 <p align="center">
-	<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rosgraph.png" width="700" height="500">
+	<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rosgraph.png" width="700" height="300">
 </p>
 
     
