@@ -118,21 +118,21 @@ For the three nodes I choose to use a non-blocking function to get the user inpu
 
 The repository I found on Github and changed a little bit for my purposes is from `kbNonBlock` at [teleop_twist_keyboard_repo](https://gist.github.com/whyrusleeping/3983293).
 
-Achieve Goal Position node
+Achieve Goal Position node <img src= "https://cdn-icons-png.flaticon.com/128/854/854894.png" width=40>
 --------------
 
 The first needed feature is implemented by the achieveGoalPosition node. In fact, it gives the robot a new goal based on the user's preferences.
 This node's goal is to drive the robot into the correct location in the environment once a position coordinates have been specified. At first the user is asked for the goal's x and y coordinates, after which the program generates and publishes a message of type `move_base_msgs/MoveBaseActionGoal` in the `/move_base/goal` topic. The node keeps track of each objective by assigning it an id that is generated at random within the node.
 
 A `/move_base/status` message handler is used to determine whether the robot has reached the goal. It examines the messages that have been published on the previously indicated subject.
-When the robot comes to a halt, the status code changes to '3' if the robot has reached the goal position, and to '4' if the robot is unable to reach the given location.
-Other statuses that have been managed are for instance the goal lost with status identifier '5' or the rejected status with the code '9'.
+
+The initial status code is __1__, which indicates that the robot is on his way and the goal is active.
+When the robot comes to a halt, the status code changes to __3__ if the robot has reached the goal position, and to __4__ if the robot is unable to reach the given location.
+Other statuses that have been managed are for instance the goal lost with status identifier __5__ or the rejected status with the code __9__.
 
 After having received the feedback of the status and the robot is stopped, so there isn't any active pending goal, the function `CancelGoal()`is called, a message of type `actionlib_msgs/GoalID` is generated and then published into the `/move_base/cancel` topic.
 
 <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=100 height=60>
-
-<img src= "https://cdn-icons-png.flaticon.com/128/854/854894.png" width=40>
 
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
 
