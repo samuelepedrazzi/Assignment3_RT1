@@ -220,6 +220,14 @@ The code examines the minimum distance between two points within these ranges, a
 The functions merely edit the linear and angular direction according to the requirements above, setting them to '__0__' when required, to activate this security feature.
 
 Finally, the user is prompted with a red risk warning text.
+
+RQT_Graph
+---------------------
+
+<p align="center">
+	<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rqtgraph.png" width="450"></h2>
+</p>
+
     
 <img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
 
