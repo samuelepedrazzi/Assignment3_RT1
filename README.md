@@ -241,7 +241,7 @@ Flowchart
 Here below a general flowchart of the whole project:
 
 <p align="center">
-<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/Flowchart_Assignment3_RT1.png" width="800" height="800">
+<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/Flowchart_Assignment3_RT1.png" width="900" height="800">
 </p>
 
 Conclusions and future improvements<img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
