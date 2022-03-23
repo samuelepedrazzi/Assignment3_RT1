@@ -123,7 +123,8 @@ Achieve Goal Position node <img src= "https://cdn-icons-png.flaticon.com/128/854
 --------------
 
 The first needed feature is implemented by the achieveGoalPosition node. In fact, it gives the robot a new goal based on the user's preferences.
-This node's goal is to drive the robot into the correct location in the environment once a position coordinates have been specified. At first the user is asked for the goal's x and y coordinates, after which the program generates and publishes a message of type `move_base_msgs/MoveBaseActionGoal` in the `/move_base/goal` topic. The node keeps track of each objective by assigning it an id that is generated at random within the node.
+This node's goal is to drive the robot into the correct location in the environment once the position coordinates have been specified. 
+At first the user is asked for the goal's x and y coordinates, after that the program generates and publishes a message of type `move_base_msgs/MoveBaseActionGoal` in the `/move_base/goal` topic. The node keeps track of each objective by assigning it an id that is generated at random within the node.
 
 A `/move_base/status` message handler is used to determine whether the robot has reached the goal. It examines the messages that have been published on the previously indicated subject.
 
