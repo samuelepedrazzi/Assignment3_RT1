@@ -140,7 +140,7 @@ User Drive Not Assisted node
 --------------
 
 
-The user can control the robot movement with the keypad (remember to click on BLOC NUM, otherwise the correct ascii code will not be read):
+In this node the user can simply control the robot movement with the keypad (remember to click on BLOC NUM, otherwise the correct ascii code will not be read):
 
 <center>
 
