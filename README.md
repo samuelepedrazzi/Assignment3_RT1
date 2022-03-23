@@ -130,9 +130,11 @@ A `/move_base/status` message handler is used to determine whether the robot has
 
 The initial status code is '__1__', which indicates that the robot is on his way and the goal is active.
 When the robot comes to a halt, the status code changes to '__3__' if the robot has reached the goal position, and to '__4__' if the robot is unable to reach the given location.
-Other statuses that have been managed are for instance the goal lost with status identifier '__5__' or the rejected status with the code '__9__'.
+Other statuses that have been managed are the goal lost with status identifier '__5__' or the rejected status with the code '__9__'.
 
-After having received the feedback of the status and the robot is stopped, so there isn't any active pending goal, the function `CancelGoal()`is called, a message of type `actionlib_msgs/GoalID` is generated and then published into the `/move_base/cancel` topic.
+After having received the feedback of the status and the robot is stopped, so there isn't any active pending goal, the function `CancelGoal()` is called, a message of type `actionlib_msgs/GoalID` is generated and then published into the `/move_base/cancel` topic.
+
+Finally the user can choose to continue and set another or to quit to the user interface.
 
 User Drive Not Assisted node
 --------------
