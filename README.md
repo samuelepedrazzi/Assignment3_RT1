@@ -105,13 +105,13 @@ The following are some of the commands that can be used:
 Depending on the user input it select the correct action to do, such as running one of the nodes,
 
 ```cpp
-system("rosrun Assignment3_RT1 achieveGoalPosition")
+system("rosrun Assignment3_RT1 achieveGoalPosition"),
 ```
 
 close the program (exiting from the main function) or reset the simulation with 
 
 ```cpp
-ros::service::call("/gazebo/reset_simulation", reset)`
+ros::service::call("/gazebo/reset_simulation", reset)
 ```
 
 For the nodes regarding the movement, which is a dynamic action, I choose to use a __non-blocking function__ to get the user input, which is good for speeding up program execution and improving consumer experience (you don't have to press enter key every time).
