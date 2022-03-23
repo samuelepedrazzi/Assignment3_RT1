@@ -223,12 +223,18 @@ Finally, the user is prompted with a red risk warning text.
 
 RQT_Graph
 ---------------------
+The project graph, which illustrates the relationships between the nodes, is shown below. Keep in mind that this is a graph built by forcing all three nodes to execute at the same time in order to obtain a full graph. This does not happen during normal execution.
+
+The graph can be generated using this command:
+ 
+```console
+$ rqt_graph
+``` 
 
 <p align="center">
 	<img src="https://github.com/samuelepedrazzi/Assignment3_RT1/blob/noetic/images/rosgraph.png" width="1000">
 </p>
 
-    
-<img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
-
-
+Conclusions and future improvements<img src= "https://media1.giphy.com/media/HGn4DKP2K6HLMTtzf9/200w.webp?cid=ecf05e47d9q1lels5jeofny61n0cbjmyhpl0zas1si8bxxbo&rid=200w.webp&ct=s" width=100 height=60>
+-------------------
+Even though the objectives for this assignment were quite challeging, I'm pleased with the final product because all three driving modes function properly. In terms of improvements, I've noticed that the feedback to check if the robot has reached the target takes a long time to be detected by the base scan/status topic in the achieveGoalPosition modality, therefore it could be a good idea to manage and optimize the feedback in a different method.
