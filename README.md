@@ -167,7 +167,7 @@ The speed is calculated by multiplying the relative speed by the selected direct
 
 When the robot starts moving the move_base node publishes the right velocity and orientation on the cmd_vel topic.
 
-## User Drive Assisted node <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width=80></h2>
+## User Drive Assisted node <img src= "https://media1.giphy.com/media/2Mn5rVOQSGnlRquUkM/200w.webp?cid=ecf05e47wixskor4jhxrjrz9it6ww1p8gd7giv8tq64fke67&rid=200w.webp&ct=s" width="100" height="50">
 
 Essentially, it intends to allow the user to control the robot in the environment using the keyboard, but we also want to enable automatic obstacle avoidance in this instance.
 
