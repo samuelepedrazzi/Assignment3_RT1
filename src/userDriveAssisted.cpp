@@ -1,3 +1,28 @@
+/**
+* \file userDriveAssisted.cpp
+* \brief mode utilizing the keyboard to control the robot using obstacle avoidance
+* \author Samuele Pedrazzi
+* \version 1.0.0
+* \date 24/04/2022
+*
+*
+* \details
+*
+* Subscribes to: <BR>
+*  /scan to detect obstacles
+*
+* Publishes to: <BR>
+*  /cmd_vel to publish the velocity of the robot
+*
+* Description : 
+*
+* This node intends to give the user the ability to control the robot in the environment
+* through the keyboard, but we also want to provide automatic obstacle avoidance in this situation.
+* Because the purpose is similar to what was accomplished with the KeyboardDrive node, 
+* some of the code has been reused.
+*
+**/
+
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
@@ -9,22 +34,18 @@
 #define GREEN "\033[1;32m"
 #define RED "\033[1;31m"
 
-// Initializing the publisher and the message of type geometry_msgs::Twist
-ros::Publisher pub_vel;
-geometry_msgs::Twist robot_vel;
 
-// Define global variables for the distance threshold and the initial velocity
-float th_min = 0.8;
-float vel = 0.5;
+ros::Publisher pub_vel; ///< Initializing the publisher 
+geometry_msgs::Twist robot_vel; ///< Initializing the message of type geometry_msgs::Twist
 
-// Define initial angular velocity
-float twist_vel = 1;
 
-// Define variables for teleop_key speed directions
-int angle_dir = 0;
-int lin_dir = 0;
+float th_min = 0.8; ///< Define a global variable for the distance threshold
+float vel = 0.5; ///< Define a global variable for the initial velocity
+float twist_vel = 1; ///< Define a global initial angular velocity
 
-// Define the menu to show the possible commands
+int angle_dir = 0; ///< Define variable for teleop_key linear speed direction
+int lin_dir = 0; ///< Define variable for teleop_key angular speed direction
+
 std::string menuTeleop = R"(You can move the robot with the following commands:
 
    7    8    9
@@ -41,11 +62,19 @@ w   : reset only angular speed
 CTRL-C to quit
 Notice that any other input will stop the robot.
 
-)";
+)";	///< Define the menu to show the possible commands
 
-/*
-This function calculate the minimum distance among array values and return the smallest
-*/
+/**
+* \brief Function to check the minimum value in a fixed range of an array
+* \param angle_range[] the array 
+* \param min_value the index from which we start searching
+* \param max_value the index at which we stop the search
+* 
+* \return value the minimum float value in the range
+*
+* This function through a for loop compare the elements of the selected range,
+* it calculates the minimum distance among array values and return the smallest.
+**/
 float checkDistance(float angle_range[], float min_value, float max_value)
 {
     // set the max distance for the laser to not occure of errors
@@ -61,9 +90,17 @@ float checkDistance(float angle_range[], float min_value, float max_value)
     return value;
 }
 
-/*
-Function to control the robot movement and manage its speed - the parameter msg is the message published into base_scan topic
-*/
+/**
+* \brief Function to check the closest wall and decide the next move to avoide crashing into it.
+* \param msg contains the variables that the robot laser provides.
+* 
+* \return void as this method cannot fail.
+*
+* This function is used to control the robot movement and manage its speed.
+* It checks the distance of the robot to a wall and if it is less than the threshold set before, it updates
+* the speed in such a way that the robot cannot collide with circuit delimitations and it is able to continue driving avoiding walls.
+* The parameter msg is the message published into base_scan topic.
+**/
 void CollisionAvoidance(const sensor_msgs::LaserScan::ConstPtr &msg)
 {
     // Initializing the array of the laser scans and the variables in which there will be the actual values of distance for the specific range
@@ -123,16 +160,30 @@ void CollisionAvoidance(const sensor_msgs::LaserScan::ConstPtr &msg)
     pub_vel.publish(robot_vel);
 }
 
-/*
-In order to use non-blocking inputs from the keyboard, let's take these function to select non-blocking mode and then restore to blocking mode.
-Functions are taken from the repository of github kbNonblock.c at https://gist.github.com/whyrusleeping/3983293
-*/
+// In order to use non-blocking inputs from the keyboard, let's take these function to select non-blocking mode and then restore to blocking mode.
+// Functions are taken from the repository of github kbNonblock.c at https://gist.github.com/whyrusleeping/3983293
+
+/**
+* \brief Function to restore to blocking keyboard input
+*
+* \return void as this method cannot fail.
+*
+* This function is used to restore to blocking mode the old keyboard settings.
+**/
 void RestoreKeyboardBlocking(struct termios *initial_settings)
 {
     // Reapply old settings
     tcsetattr(STDIN_FILENO, TCSANOW, initial_settings);
 }
 
+
+/**
+* \brief Function to set non-blocking keyboard input
+*
+* \return void as this method cannot fail.
+*
+* This function is used to set to non-blocking mode the keyboard settings.
+**/
 void SetKeyboardNonBlock(struct termios *initial_settings)
 {
 
@@ -152,9 +203,13 @@ void SetKeyboardNonBlock(struct termios *initial_settings)
     tcsetattr(STDIN_FILENO, TCSANOW, &new_settings);
 }
 
-/*
-Function to have non-blocking keyboard input
-*/
+/**
+* \brief Function to have non-blocking keyboard input
+*
+* \return an integer c given from the user input
+*
+* This function is used to avoid pressing enter after giving a keyboard input.
+**/
 int GetChar(void)
 {
     struct termios term_settings;
@@ -170,10 +225,16 @@ int GetChar(void)
     return c;
 }
 
-/*
-Function that returns true if an input has arrived and chooses what to do based on it:
-it is dedicated to the change of the velocity communicating with the user interface.
-*/
+/**
+* \brief Function to associate the input from keyboard to the correct command
+* \param an input char to associate with the correct command
+*
+* \return void as this method cannot fail.
+*
+* This function is used to control velocity strategically,
+* the user's input is associated with a certain action via a switch and the
+* speed and turn velocity are updated in the right way.
+**/
 void UpdateVelocity(char input)
 {
     switch (input)
@@ -270,9 +331,14 @@ void UpdateVelocity(char input)
     return;
 }
 
-/*
-Function that acts as UI of the current node, it is used to show the possible commands
-*/
+/**
+* \brief Function that acts as UI of the current node, it is used to show the possible commands
+*
+* \return void as this method cannot fail.
+*
+* This function aim is to show to the user the possible commands for moving the robot in the environment.
+* Then it updates the curent velocity and directon of the robot in response of the input.
+**/
 void TeleopCommands()
 {
     std::cout << BOLD << ITALIC << "Welcome to the user interface, you can let the robot move based on these different behaviours:\n"
@@ -292,6 +358,18 @@ void TeleopCommands()
 
 }
 
+/**
+* \brief main
+*
+*
+* \param  argc The command line arguments are counted in integers.
+* \param  argv The command line arguments are represented as a vector.
+* \return an integer 0 if it succeeded.
+*
+* The main function initialize the node, advertise the topic to publish the velocity,
+* subscribe to /scan topic and start the program with async spynner to create a multithread process
+* in order to have a non-blocking read from the teleop keyboard inputs.
+**/
 int main(int argc, char **argv)
 {
     system("clear");

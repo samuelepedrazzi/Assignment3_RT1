@@ -1,3 +1,29 @@
+/**
+* \file achieveGoalPosition.cpp
+* \brief mode to set a goal and allow the robot to reach it on its own
+* \author Samuele Pedrazzi
+* \version 1.0.0
+* \date 24/04/2022
+*
+*
+* \details
+*
+* Subscribes to: <BR>
+*  /move_base/status to get the status of the robot
+*
+* Publishes to: <BR>
+*  /move_base/goal to publish te goal position
+*  /move_base/cancel to cancel the goal
+*
+* Description : 
+*
+* This node's goal is to drive the robot into the correct location in the environment once a position has been specified.
+* The node first asks the user for the goal's x and y coordinates, after which it generates and publishes a message 
+* of type move_base_msgs/MoveBaseActionGoal in the /move_base/goal topic. 
+* The node keeps track of each objective by assigning it an id that is generated at random within the node.
+*
+**/
+
 #include "ros/ros.h"
 #include "stdio.h"
 #include "string.h"
@@ -13,36 +39,36 @@
 #define RED "\033[1;31m"
 #define BLUE "\033[1;34m"
 
-// Initializing the publishers for the goal and for cancelling the goal
-ros::Publisher pub_goal;
-ros::Publisher pub_canc_goal;
+ros::Publisher pub_goal; ///< Initializing the publisher for the goal
+ros::Publisher pub_canc_goal; ///< Initializing the publisher for cancelling the goal
 
-// Initialize subsrcibers
-ros::Subscriber sub_feedback;
+ros::Subscriber sub_feedback; ///< Initialize subscriber
 
-// Variable for the goal
 // The messages needed to communicate with the move_base node are contained in the package move_base_msgs.
 // The move_base package implements an action that, given a goal in the world, try to achieve it.
-move_base_msgs::MoveBaseActionGoal msg_goal;
+move_base_msgs::MoveBaseActionGoal msg_goal; ///< Variable for the goal
 
-// Create a variable to read the goal's fields and cancel it.
-actionlib_msgs::GoalID msg_canc;
+actionlib_msgs::GoalID msg_canc; ///< Create a variable to read the goal's fields and cancel it.
 
-// Define a boolean if there is a pending goal or not
-bool pending_goal = false;
 
-// Define the position coordinates of the actual goal
-float x_goal;
-float y_goal;
+bool pending_goal = false; ///< Define a boolean if there is a pending goal or not
 
-// Define a variable to save the goal id
-int goal_id;
 
-void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg);
+float x_goal; ///< Set the x position coordinate of the actual goal
+float y_goal; ///< Set the y position coordinate of the actual goal
 
-/*
-Function that simply show the actual goal coordinates.
-*/
+int goal_id; ///< Define a variable to save the goal id
+
+
+void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg); ///< Define the prototype of the function
+
+/**
+* \brief Function that simply show the actual goal coordinates. 
+*
+* \return void as this method cannot fail.
+*
+* This function simply show the actual goal coordinates, if there are any, otherwise it tells that there is none.
+**/
 void DisplayMenu()
 {	
 	if(pending_goal)
@@ -55,10 +81,14 @@ void DisplayMenu()
 	}
 }
 
-/*
-Function that receive the coordinates from the user and set the goal with an id.
-Then it publish the goal and subscribe to the goal status.
-*/
+/**
+* \brief Function to get the goal coordinates 
+*
+* \return void as this method cannot fail.
+*
+* This function receives the coordinates from the user and set the new goal with an id.
+* Then it publish the goal to move_base_msgs::MoveBaseActionGoal and subscribe to the goal status /move_base/status.
+**/
 void SetTargetCoordinates()
 {	
 	
@@ -105,10 +135,14 @@ void SetTargetCoordinates()
         sub_feedback = nh.subscribe("/move_base/status", 1, GetFeedback);  
 }
 
-/*
-Function that returns false if there isn't a goal to cancel
-otherwise, it cancels the goal by its id and returns true.
-*/
+
+/**
+* \brief This function cancels the actual goal
+* \return True if the goal has been cancelled correctly, False if there is no goal to cancel
+*
+* This Function that returns false if there isn't a goal to cancel
+* otherwise, it cancels the goal by its id publishing a message on /move_base/cancel topic and return true.
+**/
 bool CancelGoal()
 {
 	//if there is not any pending goal, do nothing, otherwise delete the goal.
@@ -123,10 +157,16 @@ bool CancelGoal()
 	return true;
 }
 
-/*
-Function that checks the returning status from the ros message GoalStatusArray and
-select the correct action and feedback to take back to the user.
-*/
+/**
+* \brief Function to check the feedback of the pending goal, delete the goal and let the user set another goal.
+* \param msg contains the informations about the feedback provided by the robot scanner 
+*
+* \return void as this method cannot fail.
+*
+* The function checks the returning status from the ros message GoalStatusArray and
+* select the correct action based on the feedback, which is also reported and shown to the user.
+* Finally it asks the user if he want to set another goal.
+**/
 void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
 {	
 	// Define a variable to save the goal's status
@@ -192,7 +232,18 @@ void GetFeedback(const actionlib_msgs::GoalStatusArray::ConstPtr& fdb_msg)
 	
 }
 
-
+/**
+* \brief main
+*
+*
+* \param  argc The command line arguments are counted in integers.
+* \param  argv The command line arguments are represented as a vector.
+* \return an integer 0 if it succeeded.
+*
+* The main function randomize the assignment of the id to a goal, then initialize the node and
+* advertise the topics relative to publish the goals and cancel them. After that it calls the function 
+* to set the goal's coordinates.
+**/
 int main(int argc, char **argv)
 {
     srand(time(NULL));

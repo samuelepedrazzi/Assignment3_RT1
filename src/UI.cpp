@@ -1,3 +1,25 @@
+/**
+* \file UI.cpp
+* \brief Final assignment: user interface for a mobile robot using RViz and Gazebo
+* \author Samuele Pedrazzi
+* \version 1.0
+* \date 24/04/2022
+*
+*
+* Services : <BR>
+*  /gazebo/reset_simulation used to reset the simulation in gazebo
+*
+* Description :
+*
+* This node allows the user to select the robot's movement modes:
+* ° establishing the coordinates of a target to be accomplished, and the robot calculating a path to reach it dynamically
+* ° controlling it via keyboard
+* ° controlling it via keyboard with collision avoidance to avoid obstacles
+*
+* The robot is navigating through an unknown environment, but owing to laser scanner sensors, it can create a map and recognize barriers.
+*
+**/
+
 #include "ros/ros.h"
 #include "std_srvs/Empty.h"
 #include <termios.h>
@@ -9,10 +31,8 @@
 #define GREEN  "\033[1;32m"
 #define RED "\033[1;31m"
 
-// Defining the Empty object reset which is needed to reset the robot position and the first value of the speed
-std_srvs::Empty reset;
+std_srvs::Empty reset;	///< Defining the Empty object reset which is needed to reset the robot position and the first value of the speed
 
-// Define menu to select which activity the robot has to do
 std::string Menu = R"(
 ___________________________________________________________________
 
@@ -26,11 +46,18 @@ ___________________________________________________________________
 
 5 - Reset the simulation
 
-)";
+)";	///< Define menu to select which activity the robot has to do
 
-/*
-Function that display the options and, depending on the user input, select the one chosen.
-*/
+ 
+ 
+/**
+* \brief Function that display the options and, depending on the user input, select the one chosen.
+*
+* \return an integer that determine the user choice, it will be used in the main to select the next node to be runned.
+*
+* This function print on the screen print a short message and the menu showing all the possible commands and
+* the menu to choose the robot's movements modalities and returns the selected one in form of an integer.
+**/
 int BehaviourChoice()
 {
     system("clear");
@@ -43,6 +70,18 @@ int BehaviourChoice()
     
 }
 
+
+/**
+* \brief main
+*
+*
+* \param  argc The command line arguments are counted in integers.
+* \param  argv The command line arguments are represented as a vector.
+* \return an integer 0 if it succeeded.
+*
+* The main function uses a while loop to correlate a certain keyboard input with a specific 
+* modality, which is then executed with the system() function.
+**/
 int main(int argc, char **argv)
 {
     // Initialize the node 
